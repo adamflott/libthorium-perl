@@ -6,9 +6,6 @@ use Thorium::Protection;
 
 use Moose;
 
-# Roles
-with qw(Thorium::Roles::Logging);
-
 # core
 use Sys::Hostname qw();
 
@@ -68,29 +65,25 @@ L<Thorium::BuildConf> fixups.
 
     print 'eth0 IP is ', $sysinfo->eth0_ipv4;
 
-=head1 ROLES
-
-L<Thorium::Roles::Logging>
-
 =head1 ATTRIBUTES
 
 =head2 Optional Attributes
 
 =over
 
-=item * B<eth0_ipv4> (rw, Str)
+=item * B<eth0_ipv4> (C<rw>, C<Str>)
 
 eth0 IPv4 address.
 
-=item * B<ethernet_interfaces> (rw, HashRef)
+=item * B<ethernet_interfaces> (C<rw>, C<HashRef>)
 
 HashRef where the key is the ethernet device name and the value is the IPv4 address.
 
-=item * B<hostname> (ro, Str)
+=item * B<hostname> (C<ro>, C<Str>)
 
 Hostname.
 
-=item * B<os> (ro, Sys::Info::OS)
+=item * B<os> (C<ro>, L<Sys::Info::OS>)
 
 Returns a L<Sys::Info::OS> object.
 
