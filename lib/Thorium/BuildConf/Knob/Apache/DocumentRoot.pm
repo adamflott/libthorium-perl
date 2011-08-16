@@ -1,4 +1,4 @@
-package Thorium::BuildConf::Knob::ApacheDocumentRoot;
+package Thorium::BuildConf::Knob::Apache::DocumentRoot;
 
 # ABSTRACT: Apache's DocumentRoot directive
 

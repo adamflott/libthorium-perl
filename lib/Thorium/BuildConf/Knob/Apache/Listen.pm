@@ -1,4 +1,4 @@
-package Thorium::BuildConf::Knob::ApacheListen;
+package Thorium::BuildConf::Knob::Apache::Listen;
 
 # ABSTRACT: Apache's Listen directive
 

@@ -1,4 +1,4 @@
-package Thorium::BuildConf::Knob::ApacheAccessLog;
+package Thorium::BuildConf::Knob::Apache::AccessLog;
 
 # ABSTRACT: Apache's AccessLog directive
 

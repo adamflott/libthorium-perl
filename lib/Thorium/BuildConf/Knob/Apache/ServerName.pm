@@ -1,4 +1,4 @@
-package Thorium::BuildConf::Knob::ApacheServerName;
+package Thorium::BuildConf::Knob::Apache::ServerName;
 
 # ABSTRACT: Apache's ServerName directive
 

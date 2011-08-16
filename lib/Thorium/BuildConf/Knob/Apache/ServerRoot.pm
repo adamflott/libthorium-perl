@@ -1,4 +1,4 @@
-package Thorium::BuildConf::Knob::ApacheServerRoot;
+package Thorium::BuildConf::Knob::Apache::ServerRoot;
 
 # ABSTRACT: Apache's ServerRoot directive
 

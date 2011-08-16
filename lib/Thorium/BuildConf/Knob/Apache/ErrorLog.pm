@@ -1,4 +1,4 @@
-package Thorium::BuildConf::Knob::ApacheErrorLog;
+package Thorium::BuildConf::Knob::Apache::ErrorLog;
 
 # ABSTRACT: Apache's ErrorLog directive
 
