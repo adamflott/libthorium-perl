@@ -48,7 +48,7 @@ sub socket_read_data {
 
     while ($timeout > 0) {
 
-        my ($nfound, $time_left) = select($rout = $rin, undef, $eout = $ein, $timeout);
+        my ($time_left) = select($rout = $rin, undef, $eout = $ein, $timeout);
 
         $timeout = $time_left;
 
