@@ -1,6 +1,12 @@
 Revision history for Thorium.
 
-{{$NEXT}}
+0.501  Fri Aug 19 13:01:55 EDT 2011
+
+  [ENHANCEMENTS]
+
+  * remove dependency on Path::Class
+
+  * Clean up the Thorium::Conf extending interface for the component level files
 
 0.500  Fri Aug 19 00:10:02 EDT 2011
 
