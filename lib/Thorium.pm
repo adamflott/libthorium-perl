@@ -90,7 +90,7 @@ We now have configurable item for the user.
 =head2 3. Create conf/presets/defaults.yaml
 
 This file will be the base for all configurable data that we will be accessing
-through a derived L<Thorium::Conf> object. Use L<YAML::XS> compatiable syntax.
+through a derived L<Thorium::Conf> object. Use L<YAML::XS> compatible syntax.
 
     ---
     pizza:
