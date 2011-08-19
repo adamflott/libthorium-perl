@@ -13,9 +13,9 @@ features:
 
 =over 4
 
-=item * generates files from L<Template>s
+=item * generate files from templates via L<Template>
 
-=item * uses YAML as the backing store for configurations
+=item * enables complex data structures from the YAML backing store
 
 =item * optionally a console GUI to easily adjust configuration
 
@@ -27,19 +27,19 @@ aims to fill that gap other configuration systems don't.
 
 =begin html
 
-With L<Thorium> this is possible:
+<p>With Thorium> this is possible:</p>
 
-Introduction screen:
+<p>Introduction screen:</p>
 
-<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-1.png" />
+<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-1.png" alt="introduction screen">
 
-Configuration screen:
+<p>Configuration screen:</p>
 
-<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-2.png" />
+<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-2.png" alt="configuration screen">
 
-Changing value screen:
+<p>Changing value screen:</p>
 
-<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-2.png" />
+<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-2.png" alt="changing value screen">
 
 =end html
 
