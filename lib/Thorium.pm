@@ -17,7 +17,7 @@ features:
 
 =item * uses YAML as the backing store for configurations
 
-=item * optinally a console GUI to easily adjust configuration
+=item * optionally a console GUI to easily adjust configuration
 
 =back
 
@@ -27,7 +27,7 @@ aims to fill that gap other configuration systems don't.
 
 =begin html
 
-With L<Throium> this is possible:
+With L<Thorium> this is possible:
 
 Introduction screen:
 
@@ -51,8 +51,7 @@ The full source code is available in this distributions F<examples> directory.
 
 We will be extending L<Thorium::BuildConf> and L<Thorium::Conf>. I suggest
 something unique that won't show up on CPAN. For this example we are going to
-use C<Pizza>. And our app will be creating a configurable and printable pizza
-recipe.
+use C<Pizza>. And our app will be creating a pizza.
 
 =head2 2. Extend L<Thorium::BuildConf>
 
@@ -91,20 +90,19 @@ We now have configurable item for the user.
 =head2 3. Create conf/presets/defaults.yaml
 
 This file will be the base for all configurable data that we will be accessing
-through a derived L<Thorium::Conf> object. Use YAML syntax. All processing and
-validation checking goes through L<YAML::XS>.
+through a derived L<Thorium::Conf> object. Use L<YAML::XS> compatiable syntax.
 
     ---
     pizza:
         crust_type: thin
 
 Now in your L<Template> file, F<awesome-pizza.tt2>, you have access to that data
-via a C<.> seperated syntax. For example, to get the crust type you'd use:
+via a C<.> separated syntax. For example, to get the crust type you'd use:
 
     [% pizza.crust_type %]
 
 You may also alter this data in your own F<defaults.yaml> derived "preset". See
-<Thorium::BuildConf> for more.
+L<Thorium::BuildConf> for more.
 
 =head2 4. Extend L<Thorium::Conf>
 
@@ -158,6 +156,8 @@ overriding defaults in L<Thorium::Conf>.
     )->run;
 
 =head2 6. Run configure
+
+    ./configure
 
 At this point you should see console GUI.
 
