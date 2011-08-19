@@ -8,6 +8,8 @@
 
 =item * clean up Thorium::Conf extending interface
 
+=item * get Thorium::Utils added when Proc::ProcessTable works on most platforms
+
 =item * T::BuildConf: implement currently selected through dlg_current_listitem() from util.c
 
 =item * T::BuildConf: figure out why resizing the term (sig winch) forces it to exit with value 0
