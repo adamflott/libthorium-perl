@@ -1,3 +1,5 @@
+# PODNAME: Thorium::TODO
+
 =head1 Thorium TODO
 
 =head2 Higher Priority
