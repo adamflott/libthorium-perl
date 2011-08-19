@@ -39,7 +39,7 @@ aims to fill that gap other configuration systems don't.
 
 <p>Changing value screen:</p>
 
-<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-2.png" alt="changing value screen">
+<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-3.png" alt="changing value screen">
 
 =end html
 
