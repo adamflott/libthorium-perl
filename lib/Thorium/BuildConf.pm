@@ -1,6 +1,6 @@
 package Thorium::BuildConf;
 
-# ABSTRACT: Configuration management
+# ABSTRACT: Configuration management class
 
 use Thorium::Protection;
 
@@ -57,7 +57,7 @@ has 'files' => (
 has 'root' => (
     'isa'           => 'Str',
     'is'            => 'rw',
-    'required'      => 1,
+    'default'       => $FindBin::Bin,
     'documentation' => 'Directory root of the configuration files.'
 );
 
@@ -970,33 +970,75 @@ no Moose::Util::TypeConstraints;
 
 =head1 DESCRIPTION
 
-This module is used for prompting users for values which will later replace
-values specified in Template Toolkit formatted files. The saved user data is
-called a preset.
+L<Thorium::BuildConf> consists of two main parts. The configuration console GUI
+and the file generator.
+
+The configuration console GUI provides a way someone unfamiliar with your
+application to alter the defaults. They may save a version into their own preset
+or use a fixup.
 
 =head1 SYNOPSIS
 
-An example F<configure> file for the custom download server.
+This class should be extended and customized to your application.
+
+    package Some::App::BuildConf;
+
+    use Thorium::Protection;
+
+    use Moose;
+
+    extends 'Thorium::BuildConf';
+
+    use Thorium::BuildConf::Knob::URL::HTTP;
+
+    has '+files' => ('default' => 'config.tt2);
+
+    has '+knobs' => (
+        'default' => sub {
+            [
+                Some::App::BuildConf::Knob::URL::HTTP->new(
+                    'conf_key_name' => 'some_app.',
+                    'name'          => 'favorite web site',
+                    'question'      => 'What is your favorite web site?'
+                )
+            ];
+        }
+    );
+
+    __PACKAGE__->meta->make_immutable;
+    no Moose;
+
+And driven by a F<configure> script
 
     #!/usr/bin/env perl
 
     use strict;
 
-    # core
-    use FindBin qw();
-    use lib "$FindBin::Bin/lib";
-
-    # local
     use Some::App::BuildConf;
 
     Some::App::BuildConf->new(
-        'root'      => $FindBin::Bin,
-        'conf_type' => 'Some::App::Conf'
+        'conf_type' => 'Some::App::Conf',
     )->run;
 
-=head1 ROLES
+=head1 FEATURES
 
-L<Thorium::Roles::Logging>, L<Thorium::Roles::Trace>
+=head2 CONFIGURATION CONSOLE GUI
+
+L<Thorium::BuildConf> uses L<Hobocamp> (bindings for C<dialog(1)>) and it's
+widget set for an interactive console user interface.
+
+=head2 FILE GENERATION
+
+You should use
+
+=head2 KNOBS
+
+A knob is anything that is tunable with strict or loose input validation. See
+L<Thorium::BuildConf::Knob> for creating your own custom knob.
+
+=head2 PRESETS
+
+A preset is a static YAML data specific to a user or an environment.
 
 =head1 ATTRIBUTES
 
@@ -1004,21 +1046,17 @@ L<Thorium::Roles::Logging>, L<Thorium::Roles::Trace>
 
 =over
 
-=item * B<conf> (rw, Maybe[Thorium::Conf])
+=item * B<conf> (C<rw>, C<Maybe[Thorium::Conf]>)
 
 Configuration object.
 
-=item * B<files> (rw, ArrayRef|Str)
+=item * B<files> (C<rw>, C<ArrayRef|Str>)
 
-String or list of files to be processed (Template Toolkit format).
+String or list of files to be processed (L<Template> Toolkit format).
 
 =item * B<knobs> (ro, Any)
 
-Thorium::BuildConf::Knobs derived object.
-
-=item * B<root> (rw, Str)
-
-Directory root of the configuration files.
+L<Thorium::BuildConf::Knobs> derived object.
 
 =back
 
@@ -1051,6 +1089,10 @@ Preset name.
 =item * B<preset_root> (rw, Str)
 
 Directory root of the presets e.g. $self->root + "conf/presets".
+
+=item * B<root> (rw, Str)
+
+Directory root of the configuration files.
 
 =item * B<script_name> (ro, Str)
 
