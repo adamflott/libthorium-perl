@@ -1,0 +1,25 @@
+=head1 Thorium TODO
+
+=head2 Higher Priority
+
+=over 4
+
+=item * make preset location configurable
+
+=item * clean up Thorium::Conf extending interface
+
+=item * T::BuildConf: implement currently selected through dlg_current_listitem() from util.c
+
+=item * T::BuildConf: figure out why resizing the term (sig winch) forces it to exit with value 0
+
+=back
+
+=head2 Lower Priority
+
+=over 4
+
+=item * more knob types
+
+=item * move Unix* to Unix/* ?
+
+=back
