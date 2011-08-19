@@ -1,7 +1,164 @@
 package Thorium;
 
-# ABSTRACT: Configuration, log, type management libraries
-
-# DO NOT EXTEND THIS CLASS; it is a namespace placeholder
+# ABSTRACT: Configuration management framework
 
 1;
+
+__END__
+
+=head1 ABOUT
+
+L<Thorium> is a collection of libraries for configuration management. Notable
+features:
+
+=over 4
+
+=item * generates files from L<Template>s
+
+=item * uses YAML as the backing store for configurations
+
+=item * optinally a console GUI to easily adjust configuration
+
+=back
+
+Building complex applications that are highly configurable can be difficult. You
+want to balance an easy end user configuration with powerful tools. L<Thorium>
+aims to fill that gap other configuration systems don't.
+
+=begin html
+
+With L<Throium> this is possible:
+
+Introduction screen:
+
+<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-1.png" />
+
+Configuration screen:
+
+<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-2.png" />
+
+Changing value screen:
+
+<img src="http://www.npjh.com/pictures/public/thorium/thorium-example-2.png" />
+
+=end html
+
+=head1 QUICK START
+
+The full source code is available in this distributions F<examples> directory.
+
+=head2 1. Choose A Namespace
+
+We will be extending L<Thorium::BuildConf> and L<Thorium::Conf>. I suggest
+something unique that won't show up on CPAN. For this example we are going to
+use C<Pizza>. And our app will be creating a configurable and printable pizza
+recipe.
+
+=head2 2. Extend L<Thorium::BuildConf>
+
+This example will use a fictional L<Thorium::BuildConf::Knob> for demonstration
+purposes. You are free and encouraged to create your own specific knobs.
+
+    package Pizza::BuildConf;
+
+    use Moose;
+
+    use Pizza::BuildConf::Knob::CrustType;
+
+    extends 'Thorium::BuildConf';
+
+    has '+type' => (default => 'Pizza Maker');
+
+    has '+files' => ('default' => 'awesome-pizza.tt2');
+
+    has '+knobs' => (
+        'default' => sub {
+            [
+                Pizza::BuildConf::Knob::CrustType->new(
+                    'conf_key_name' => 'pizza.crust_type',
+                    'name'          => 'Crust type',
+                    'question'      => 'What kind of crust do you want?'
+                )
+            ];
+        }
+    );
+
+    __PACKAGE__->meta->make_immutable;
+    no Moose;
+
+We now have configurable item for the user.
+
+=head2 3. Create conf/presets/defaults.yaml
+
+This file will be the base for all configurable data that we will be accessing
+through a derived L<Thorium::Conf> object. Use YAML syntax. All processing and
+validation checking goes through L<YAML::XS>.
+
+    ---
+    pizza:
+        crust_type: thin
+
+Now in your L<Template> file, F<awesome-pizza.tt2>, you have access to that data
+via a C<.> seperated syntax. For example, to get the crust type you'd use:
+
+    [% pizza.crust_type %]
+
+You may also alter this data in your own F<defaults.yaml> derived "preset". See
+<Thorium::BuildConf> for more.
+
+=head2 4. Extend L<Thorium::Conf>
+
+This will be our access to the YAML data we created in step TODO.
+
+    package Pizza::Conf;
+
+    use Moose;
+
+    extends 'Thorium::Conf';
+
+    # CPAN
+    use Dir::Self;
+    use Path::Class::File;
+
+    has '+component_name' => ('default' => 'pizza-recipe-maker');
+
+    has '+component' => (
+        'default' => sub {
+            my @files = (Path::Class::File->new(__DIR__, '..', '..', 'conf', 'presets', 'defaults.yaml')->stringify,);
+
+            my $preset_config = Path::Class::File->new(__DIR__, '..', '..', 'conf', 'local.yaml')->stringify;
+
+            if (-e -r -s $preset_config) {
+                push(@files, $preset_config);
+            }
+
+            return \@files;
+        }
+    );
+
+    __PACKAGE__->meta->make_immutable;
+    no Moose;
+
+F<local.yaml> is the resulting saved file of all configuration data. More about
+overriding defaults in L<Thorium::Conf>.
+
+=head2 5. Create the configure Script
+
+    #!/usr/bin/env perl
+
+    use strict;
+
+    use Find::Lib '../lib';
+    use Find::Lib 'lib';
+
+    use Pizza::BuildConf;
+
+    Pizza::BuildConf->new(
+        'conf_type' => 'Pizza::Conf',
+    )->run;
+
+=head2 6. Run configure
+
+At this point you should see console GUI.
+
+If you go to the C<Configure> option you should see your crust type.
