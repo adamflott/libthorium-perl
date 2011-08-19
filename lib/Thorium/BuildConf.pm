@@ -991,7 +991,7 @@ This class should be extended and customized to your application.
 
     use Thorium::BuildConf::Knob::URL::HTTP;
 
-    has '+files' => ('default' => 'config.tt2);
+    has '+files' => ('default' => 'config.tt2');
 
     has '+knobs' => (
         'default' => sub {
