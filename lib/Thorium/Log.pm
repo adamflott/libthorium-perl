@@ -22,21 +22,30 @@ has 'enabled' => (
     'documentation' => 'True if logging is currently enabled.'
 );
 
+has '_env_var_config_key' => (
+    'is'      => 'rw',
+    'isa'     => 'Str',
+    'default' => 'THORIUM_LOG_CONF_FILE'
+);
+
 has 'config_file' => (
     'is'      => 'rw',
     'isa'     => 'Str',
-    'default' => sub {
-        my $log_file = '/etc/thorium/log.conf';
-
-        if ($ENV{'THORIUM_LOG_CONF_FILE'} && -r $ENV{'THORIUM_LOG_CONF_FILE'}) {
-            $log_file = $ENV{'THORIUM_LOG_CONF_FILE'};
-        }
-
-        return $log_file;
-    },
-    'documentation' =>
-'The location of the configuration file to read. You may set the environment variable C<THORIUM_LOG_CONF_FILE> otherwise F</etc/thorium/log.conf> will be used. An example is provided in this distribution under F<conf/log.conf>. See Log::Log4Perl for details.'
+    'documentation' => 'The location of the configuration file to read. You may set the environment variable C<THORIUM_LOG_CONF_FILE> otherwise F</etc/thorium/log.conf> will be used. An example is provided in this distribution under F<conf/log.conf>. See Log::Log4Perl for details.',
+    'lazy_build' => 1
 );
+
+sub _build_config_file {
+    my ($self) = @_;
+
+    my $log_file = '/etc/thorium/log.conf';
+
+    if ($ENV{$self->_env_var_config_key} && -r $ENV{$self->_env_var_config_key}) {
+        $log_file = $ENV{$self->_env_var_config_key};
+    }
+
+    return $log_file;
+}
 
 has 'caller_depth' => (
     'is'            => 'rw',
