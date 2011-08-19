@@ -27,7 +27,7 @@ aims to fill that gap other configuration systems don't.
 
 =begin html
 
-<p>With Thorium> this is possible:</p>
+<p>With Thorium this is possible:</p>
 
 <p>Introduction screen:</p>
 
