@@ -1,3 +1,5 @@
 ._*
 Thorium.xcodeproj
 .build
+Thorium-0*.tar.gz
+Thorium-0.*/
