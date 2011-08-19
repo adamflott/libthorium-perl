@@ -110,9 +110,6 @@ sub _build_category {
     return (caller(1))[0] || '?';
 }
 
-# Method modifiers
-
-# Stuff we want to happen right after construction
 sub BUILD {
     my $self = shift;
 
@@ -197,9 +194,10 @@ no Moose;
 
 =head1 DESCRIPTION
 
-Thorium::Log is a high level wrapper class around Log::Log4perl's
-functionality. Its intended purpose is to replacing all C<print>s and C<say>s
-with an appropriate level and message.
+Thorium::Log is a high level wrapper class around L<Log::Log4perl>'s
+functionality. It exists to replace all C<print>s and C<say>s. See
+L<Thorium::Roles::Logging> for adding logging support via C<$self->log->...> to
+your object. You are encouraged to subclass and set C<prefix()>.
 
 =head1 SYNOPSIS
 
@@ -215,30 +213,30 @@ with an appropriate level and message.
 
 =over
 
-=item * B<add_benchmarks> (rw, Bool)
+=item * B<add_benchmarks> (C<rw>, C<Bool>)
 
 Every time a log message is output ($log->$level($message)), additionally
 outputs a benchmark time line with the time elapsed since the last log message
 was output. Defaults to '0'.
 
-=item * B<caller_depth> (rw, Int)
+=item * B<caller_depth> (C<rw>, C<Int>)
 
 Determines (additional) depth for caller inside Log4Perl. Defaults to '1'.
 
-=item * B<category> (ro, Str)
+=item * B<category> (C<ro>, C<Str>)
 
-The category to use for Log4Perl. This is used to set category specific log
+The category to use for L<Log::Log4Perl>. This is used to set category specific log
 levels in the configuration. Default is the name of the package in which the
 Thorium::Log object was created.
 
-=item * B<config_file> (rw, Str)
+=item * B<config_file> (C<rw>, C<Str>)
 
 The location of the configuration file to read. You may set the environment
 variable C<THORIUM_LOG_CONF_FILE> otherwise F</etc/thorium/log.conf> will be
 used. An example is provided in this distribution under F<conf/log.conf>. See
 Log::Log4Perl for details.
 
-=item * B<die_on_fatal> (rw, Bool)
+=item * B<die_on_fatal> (C<rw>, C<Bool>)
 
 Allows automatic C<die()>ing for the fatal level. Defaults to '0'.
 
@@ -250,17 +248,17 @@ Allows automatic C<die()>ing for the fatal level. Defaults to '0'.
 
 =over
 
-=item * B<trace([ $str_or_ref, ... ])>
+=item * B<trace($str_or_ref, ...)>
 
-=item * B<debug([ $str_or_ref, ... ])>
+=item * B<debug($str_or_ref, ...)>
 
-=item * B<info([ $str_or_ref, ... ])>
+=item * B<info($str_or_ref, ...)>
 
-=item * B<warn([ $str_or_ref, ... ])>
+=item * B<warn($str_or_ref, ...)>
 
-=item * B<error([ $str_or_ref, ... ])>
+=item * B<error($str_or_ref, ...)>
 
-=item * B<fatal([ $str_or_ref, ... ])>
+=item * B<fatal($str_or_ref, ...)>
 
 =back
 
@@ -268,19 +266,19 @@ Allows automatic C<die()>ing for the fatal level. Defaults to '0'.
 
 =over
 
-=item * B<carp([ $str_or_ref, ... ])>
+=item * B<carp($str_or_ref, ...)>
 
 Warn with one level of a stack trace.
 
-=item * B<cluck([ $str_or_ref, ... ])>
+=item * B<cluck($str_or_ref, ...)>
 
 Warn with full stack trace.
 
-=item * B<confress([ $str_or_ref, ... ])>
+=item * B<confress($str_or_ref, ...)>
 
 Die with one level of a stack trace.
 
-=item * B<croak([ $str_or_ref, ... ])>
+=item * B<croak($str_or_ref, ...)>
 
 Die with full stack trace.
 
