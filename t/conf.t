@@ -9,10 +9,10 @@ use Test::More tests => 10;
 use Cwd;
 use Data::Dumper;
 use FindBin qw();
+use File::Spec qw();
 use Scalar::Util qw();
 
 # CPAN
-use Path::Class::File;
 use Try::Tiny;
 use YAML::XS qw(Dump);
 
@@ -25,9 +25,9 @@ use ThoriumTestComponent;
 diag('WARNING: if this test (conf.t) fails, check /etc/thorium/conf/thorium.yaml as that may alter data. It would probably be a good idea to add an attribute to Thorium::Conf to disable loading that file for testing purposes.');
 
 # data ...
-my $fp  = Path::Class::File->new($FindBin::Bin, 'etc', 'from.yaml');
-my $fp2 = Path::Class::File->new($FindBin::Bin, 'etc', 'from2.yaml');
-my $tp  = Path::Class::File->new('/tmp/whatever.yaml');
+my $fp  = File::Spec->catfile($FindBin::Bin, 'etc', 'from.yaml');
+my $fp2 = File::Spec->catfile($FindBin::Bin, 'etc', 'from2.yaml');
+my $tp  = File::Spec->catfile('/tmp/whatever.yaml');
 my $fh;
 
 my $correct_data_structure = {
@@ -40,11 +40,11 @@ my $correct_data_structure = {
     },
 };
 
-open($fh, '>', $fp->stringify) or die $!;
+open($fh, '>', $fp) or die $!;
 print {$fh} YAML::XS::Dump({a => [], b => [ ] });
 close($fh);
 
-open($fh, '>', $fp2->stringify) or die $!;
+open($fh, '>', $fp2) or die $!;
 print {$fh} YAML::XS::Dump($correct_data_structure);
 close($fh);
 
@@ -52,7 +52,7 @@ close($fh);
 
 # use case #1 direct
 
-my $conf = Thorium::Conf->new(from => [ $fp->stringify, $fp2->stringify ]);
+my $conf = Thorium::Conf->new(from => [ $fp, $fp2 ], component_root => $FindBin::Bin);
 
 # load
 is_deeply($conf->data, $correct_data_structure, 'data() returns correct data structure from file overloading');
@@ -72,7 +72,7 @@ my $correct_data_structure2 = {
     c => 10
 };
 
-open($fh, '>', $fp2->stringify) or die $!;
+open($fh, '>', $fp2) or die $!;
 print {$fh} YAML::XS::Dump($correct_data_structure2);
 close($fh);
 
@@ -80,8 +80,8 @@ $conf->reload;
 is_deeply($conf->data, $correct_data_structure2, 'changing data and reload() are the same');
 
 # save()
-is($conf->save($tp->stringify), 1, 'wrote 1 file');
-my $data = YAML::XS::LoadFile($tp->stringify);
+is($conf->save($tp), 1, 'wrote 1 file');
+my $data = YAML::XS::LoadFile($tp);
 is_deeply($data, $correct_data_structure2, 're-reading save()ed data is correct');
 
 $conf = undef;
@@ -101,7 +101,7 @@ is_deeply($conf3->data, { }, 'empty data');
 
 # $conf relies on these files being preset during the whole test, therefore remove them after all tests
 END {
-    foreach my $f ($fp->stringify, $fp2->stringify, $tp->stringify) {
+    foreach my $f ($fp, $fp2, $tp) {
         unlink $f;
     }
 }

@@ -65,7 +65,6 @@ has 'system' => (
 has 'component_root' => (
     'is'            => 'rw',
     'isa'           => 'Str',
-    'required'      => 1,
     'documentation' => 'Component specific root directory to read from.'
 );
 
@@ -173,7 +172,13 @@ sub _build_system {
 sub _build_component {
     my ($self) = @_;
 
-    my @files = (File::Spec->catfile($self->component_root, 'conf', 'presets', 'defaults.yaml'));
+    my @files;
+
+    my $defaults_config = File::Spec->catfile($self->component_root, 'conf', 'presets', 'defaults.yaml');
+
+    if (-e -r -s $defaults_config) {
+        push(@files, $defaults_config);
+    }
 
     my $preset_config = File::Spec->catfile($self->component_root, 'conf', 'local.yaml');
 
