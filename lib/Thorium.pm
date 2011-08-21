@@ -106,7 +106,7 @@ L<Thorium::BuildConf> for more.
 
 =head2 4. Extend L<Thorium::Conf>
 
-This will be our access to the YAML data we created in step TODO.
+This will be our class to access to the YAML data we created in Step 3:
 
     package Pizza::Conf;
 
