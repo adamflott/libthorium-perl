@@ -1,4 +1,4 @@
-package Thorium::BuildConf::Knob::ApacheLog::Level;
+package Thorium::BuildConf::Knob::Apache::LogLevel;
 
 # ABSTRACT: Apache's LogLevel directive
 

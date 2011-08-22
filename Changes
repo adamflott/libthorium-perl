@@ -1,5 +1,11 @@
 Revision history for Thorium.
 
+0.504  Mon Aug 22 16:20:50 EDT 2011
+
+  [BUG]
+
+  * wrong package name in Thorium::BuildConf::Knob::Apache::LogLevel
+
 0.503  Sun Aug 21 01:45:12 EDT 2011
 
   [ENHANCEMENTS]
