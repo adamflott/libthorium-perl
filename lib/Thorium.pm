@@ -152,3 +152,7 @@ overriding defaults in L<Thorium::Conf>.
 At this point you should see console GUI.
 
 If you go to the C<Configure> option you should see your crust type.
+
+=head1 CREDITS
+
+Thanks to Sean Quinlan for contributing design and feedback.
