@@ -1,5 +1,16 @@
 Revision history for Thorium.
 
+0.506  Fri Sep  2 15:41:21 EDT 2011
+  [MISC]
+
+  * Thorium::Roles::SocketClient accidentally slipped in
+
+0.505  Sun Aug 28 13:48:56 EDT 2011
+
+  [MISC]
+
+  * added CREDITS to POD
+
 0.504  Mon Aug 22 16:20:50 EDT 2011
 
   [BUG]
