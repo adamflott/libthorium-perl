@@ -5,12 +5,14 @@ package Thorium::BuildConf;
 use Thorium::Protection;
 
 BEGIN {
+
     # these environment variables influence how dialog returns exit codes, and
     # other options which may cause unwanted side effects, so delete them to
     # avoid any unwanted side effects
-    foreach
-      my $v (qw(DIALOGOPTS DIALOG_CANCEL DIALOG_ERROR DIALOG_ESC
-                DIALOG_EXTRA DIALOG_HELP DIALOG_ITEM_HELP DIALOG_OK)) {
+    foreach my $v (
+        qw(DIALOGOPTS DIALOG_CANCEL DIALOG_ERROR DIALOG_ESC
+        DIALOG_EXTRA DIALOG_HELP DIALOG_ITEM_HELP DIALOG_OK)
+      ) {
         delete($ENV{$v});
     }
 }
@@ -229,10 +231,10 @@ sub _set_conf_values {
         my $set_value;
         given ($q->ui_type) {
             when ('Menu') {
-                $set_value = $q->value || $q->data->[$q->selected]->{'name'};
+                $set_value = $q->value || $q->data->[ $q->selected ]->{'name'};
             }
             when ('RadioList') {
-                $set_value = $q->value || $q->data->[$q->selected]->{'name'};
+                $set_value = $q->value || $q->data->[ $q->selected ]->{'name'};
             }
             default {
                 $set_value = $q->value || $q->data;
@@ -557,7 +559,6 @@ option from configure.
                             }
                         }
 
-
                         eval { $q->value($value); };
 
                         if (my $e = $@) {
@@ -721,6 +722,7 @@ sub process {
     }
 
     if ($self->auto_fixup_module) {
+
         # 'Staging' and 'Production' are special case fixups we don't want any
         # autoset magic to apply to
 
@@ -835,17 +837,21 @@ sub run {
             my @changed = $self->process;
 
             if (@changed) {
-                _print_to_stdout("Processed:\n\n  ",
-                      join("\n  ",
-                           map {
-                               my $f = File::Spec->abs2rel($_, $FindBin::Bin);
-                               my $f2 = $f;
+                _print_to_stdout(
+                    "Processed:\n\n  ",
+                    join(
+                        "\n  ",
+                        map {
+                            my $f = File::Spec->abs2rel($_, $FindBin::Bin);
+                            my $f2 = $f;
 
-                               $f2 =~ s/\.tt2$//;
+                            $f2 =~ s/\.tt2$//;
 
-                               $_ = $f . ' -> ' . $f2;
-                             } @changed),
-                    "\n");
+                            $_ = $f . ' -> ' . $f2;
+                          } @changed
+                    ),
+                    "\n"
+                );
             }
             else {
                 _print_to_stdout('No config files processed!');
