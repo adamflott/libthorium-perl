@@ -322,6 +322,7 @@ sub ask {
                 $main_menu->hide;
             }
             default {
+                $main_window->destroy;
                 die("I don't know what the error code $_ is!");
             }
         }
@@ -721,19 +722,32 @@ sub process {
         $fs = [$fs];
     }
 
-    if ($self->auto_fixup_module) {
+    {
+        my $saveout;
 
-        # 'Staging' and 'Production' are special case fixups we don't want any
-        # autoset magic to apply to
-
-        my $production = 0;
-
-        if ($self->fixup) {
-            $production = ($self->fixup =~ /(?:Staging|Production)/);
+        if ($self->in_gui) {
+            open($saveout, ">&STDOUT");
+            open(STDOUT, '>', File::Spec->devnull);
         }
 
-        unless ($production) {
-            $self->apply_fixup($self->auto_fixup_module);
+        if ($self->auto_fixup_module) {
+
+            # 'Staging' and 'Production' are special case fixups we don't want any
+            # autoset magic to apply to
+
+            my $production = 0;
+
+            if ($self->fixup) {
+                $production = ($self->fixup =~ /(?:Staging|Production)/);
+            }
+
+            unless ($production) {
+                $self->apply_fixup($self->auto_fixup_module);
+            }
+        }
+
+        if ($self->in_gui) {
+            open(STDOUT, ">&", $saveout);
         }
     }
 
