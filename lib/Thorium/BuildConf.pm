@@ -294,15 +294,15 @@ sub ask {
         'menu_height' => 12,
         'width'       => 75,
         'items'       => [
-            {'name' => 'Introduction', 'text' => 'User guide'},
-            {'name' => '---',          'text' => '---'},
-            {'name' => 'Configure',    'text' => 'Configure'},
-            {'name' => '---',          'text' => '---'},
-            {'name' => 'Load',         'text' => 'Load values from a given preset'},
-            {'name' => 'Save',         'text' => 'Save to a preset file'},
-            {'name' => 'List',         'text' => 'List available presets'},
-            {'name' => '---',          'text' => '---'},
-            {'name' => 'Exit',         'text' => 'Exit'}
+            {'name' => 'Configure', 'text' => 'Configure'},
+            {'name' => '---',       'text' => '---'},
+            {'name' => 'Load',      'text' => 'Load values from a given preset'},
+            {'name' => 'Save',      'text' => 'Save to a preset file'},
+            {'name' => 'List',      'text' => 'List available presets'},
+            {'name' => '---',       'text' => '---'},
+            {'name' => 'Help',      'text' => 'User guide'},
+            {'name' => '---',       'text' => '---'},
+            {'name' => 'Exit',      'text' => 'Exit'}
         ]
     );
 
