@@ -22,7 +22,7 @@ BEGIN {
 
         $module =~ s/\.pm//;
         $module;
-    } reverse(sort(@libs));
+    } sort(@libs);
 
     require Test::More;
 
