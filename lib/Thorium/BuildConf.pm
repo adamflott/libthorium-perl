@@ -134,6 +134,14 @@ has 'knobs' => (
     'documentation' => 'List of knob objects.'
 );
 
+sub _print_to_stdout {
+    my (@msg) = @_;
+
+    if (-t STDOUT) {
+        say(@msg);
+    }
+}
+
 sub BUILD {
     my ($self) = @_;
 
@@ -781,8 +789,8 @@ sub process {
         push(@processed, $file);
 
         if ($preview_flag) {
-            say("# ---------- $file ----------");
-            say($output, "\n");
+            _print_to_stdout("# ---------- $file ----------");
+            _print_to_stdout($output, "\n");
         }
         else {
             my $mode = 0444;
@@ -802,17 +810,17 @@ sub run {
         when ('list') {
             my @presets = $self->list_presets;
             if (@presets) {
-                print("Preset Configruations:\n\n  ", join("\n  ", sort(@presets)), "\n\n");
+                _print_to_stdout("Preset Configruations:\n\n  ", join("\n  ", sort(@presets)), "\n");
             }
             else {
-                say('No preset configurations.');
+                _print_to_stdout('No preset configurations.');
             }
 
             $ret = scalar(@presets);
 
             my @fixups = $self->list_fixups;
             if (@fixups) {
-                print("Available Fixups:\n\n  ", join("\n  ", sort(@fixups)), "\n\n");
+                _print_to_stdout("Available Fixups:\n\n  ", join("\n  ", sort(@fixups)), "\n");
             }
 
             $ret &= scalar(@fixups);
@@ -827,7 +835,7 @@ sub run {
             my @changed = $self->process;
 
             if (@changed) {
-                print("Processed:\n\n  ",
+                _print_to_stdout("Processed:\n\n  ",
                       join("\n  ",
                            map {
                                my $f = File::Spec->abs2rel($_, $FindBin::Bin);
@@ -837,10 +845,10 @@ sub run {
 
                                $_ = $f . ' -> ' . $f2;
                              } @changed),
-                    "\n\n");
+                    "\n");
             }
             else {
-                say('No config files processed!');
+                _print_to_stdout('No config files processed!');
             }
 
             $ret = scalar(@changed);
@@ -866,7 +874,7 @@ sub apply_fixup {
 
     return unless ($module_name);
 
-    say("Applying fixup $module_name");
+    _print_to_stdout("Applying fixup $module_name");
     $self->log->trace("Applying fixup $module_name");
 
     Class::MOP::load_class($module_name);

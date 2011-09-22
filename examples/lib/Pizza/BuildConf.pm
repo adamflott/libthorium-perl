@@ -8,7 +8,7 @@ extends 'Thorium::BuildConf';
 
 has '+type' => (default => 'Pizza Maker');
 
-has '+files' => ('default' => 'awesome-pizza.tt2');
+has '+files' => ('default' => 'pizza.tt2');
 
 has '+knobs' => (
     'default' => sub {
