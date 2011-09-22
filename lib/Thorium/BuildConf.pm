@@ -953,7 +953,6 @@ Usage: $script [--help]
 --help             Show this help screen
 
 --list             List all available presets and fixups
---save <preset>    Save the current configuration as a preset named <preset>
 --load <preset>    Load the preset configuration named <preset>
 
 --preview          Print the processed templates to standard out
