@@ -322,7 +322,7 @@ sub save {
 }
 
 sub reload {
-    my ($self, $filename) = @_;
+    my ($self) = @_;
 
     my @files = map {
         if ($self->$_) {
