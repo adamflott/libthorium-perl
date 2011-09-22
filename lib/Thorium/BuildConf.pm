@@ -793,7 +793,7 @@ sub process {
             if ($self->in_gui) {
                 my $em = Hobocamp::MessageBox->new(
                     'title'  => 'Template Toolkit Error',
-                    'prompt' => $template->error->as_string
+                    'prompt' => $file . ": \n\n" . $template->error->as_string
                 );
                 $em->run;
                 Hobocamp->destroy;
