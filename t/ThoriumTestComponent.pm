@@ -18,7 +18,7 @@ has '+component_name' => (
 has '+component' => ('builder' => '_build_component');
 
 sub _build_component {
-     return [ $FindBin::Bin . '/etc/component.yaml', $FindBin::Bin . '/etc/local.yaml' ]
+     return [ $FindBin::Bin . '/etc/component.yaml', $FindBin::Bin .  '/etc/another.yaml' ]
 }
 
 has '+component_root' => ('default' => $FindBin::Bin );
