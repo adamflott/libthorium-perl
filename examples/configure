@@ -8,5 +8,6 @@ use Find::Lib 'lib';
 use Pizza::BuildConf;
 
 Pizza::BuildConf->new(
-    'conf_type' => 'Pizza::Conf'
+    'conf_type'         => 'Pizza::Conf',
+    'auto_fixup_module' => 'Pizza::BuildConf::Fixups::AutoSet'
 )->run;
