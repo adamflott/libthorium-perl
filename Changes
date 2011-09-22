@@ -1,6 +1,14 @@
 Revision history for Thorium.
 
+0.507  Thu 22 Sep 2011 04:26:34 PM EDT
+
+  [BUG]
+
+  * don't print info/errors to stdout when in GUI mode
+  * delete local.yaml before reloading configs to avoid pulling in bad data
+
 0.506  Fri Sep  2 15:41:21 EDT 2011
+
   [MISC]
 
   * Thorium::Roles::SocketClient accidentally slipped in
