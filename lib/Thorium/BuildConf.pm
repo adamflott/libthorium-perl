@@ -639,6 +639,7 @@ option from configure.
                     }
                 }
 
+                $self->conf->_delete_local;
                 $self->conf->from(File::Spec->catfile($self->preset_root, $menu->value->{'name'} . '.yaml'));
                 $self->conf->reload;
 
@@ -850,6 +851,7 @@ sub run {
             $ret &= scalar(@fixups);
         }
         when ('load') {
+            $self->conf->_delete_local;
             $self->conf->from($self->preset);
             $self->conf->reload;
             $self->_set_question_values;
@@ -882,6 +884,7 @@ sub run {
             $ret = scalar(@changed);
         }
         when ('preview') {
+            $self->conf->_delete_local;
             $self->conf->reload;
             $self->_set_question_values;
             $self->_set_conf_values;

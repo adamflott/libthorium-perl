@@ -109,12 +109,6 @@ sub _build_conf_data {
 
     my $data = {};
 
-    my $local_data = File::Spec->catfile($self->component_root, 'conf', $self->_local_file_name);
-
-    if (-e -r -f $local_data) {
-        unlink($local_data) || die($!);
-    }
-
     # we read configuration information in a set order
     foreach my $attrib (@{$self->_load_order}) {
 
@@ -341,6 +335,16 @@ sub reload {
     $self->_conf_data({});
 
     return $self->_conf_data($self->_build_conf_data());
+}
+
+sub _delete_local {
+    my ($self) = @_;
+
+    my $local_data = File::Spec->catfile($self->component_root, 'conf', $self->_local_file_name);
+
+    if (-e -r -f $local_data) {
+        unlink($local_data);
+    }
 }
 
 no Moose;
