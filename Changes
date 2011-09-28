@@ -1,6 +1,12 @@
 Revision history for Thorium.
 
-0.508 Wed 28 Sep 2011 05:31:42 PM EDT
+0.509  Wed 28 Sep 2011 06:53:14 PM EDT
+
+  [BUG]
+
+  * Don't delete local.yaml when loading a Throium::Conf derived object
+
+0.508  Wed 28 Sep 2011 05:31:42 PM EDT
 
   [ENHANCEMENTS]
 
