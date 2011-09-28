@@ -158,7 +158,7 @@ sub BUILD {
     $self->preset_root(File::Spec->catfile($self->root, @{$self->preset_path}));
 
     my %opts;
-    Getopt::Long::GetOptions(\%opts, qw(verbose:1 help load=s list save=s fixup:s preview!)) or $self->usage();
+    Getopt::Long::GetOptions(\%opts, qw(verbose:1 help load=s list fixup:s preview!)) or $self->usage();
 
     $self->usage() if (exists($opts{'help'}));
 
