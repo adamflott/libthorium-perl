@@ -78,15 +78,16 @@ has 'preset' => (
 has 'preset_path' => (
     'isa'           => 'ArrayRef',
     'is'            => 'ro',
-    'default'       => sub { ['conf', 'presets'] },
+    'default'       => sub { [ 'conf', 'presets' ] },
     'documentation' => q(Relative directory path to the presets from root e.g. ['conf','presets'].)
 );
 
 has 'preset_root' => (
-    'isa'           => 'Str',
-    'is'            => 'rw',
-    'default'       => '',
-    'documentation' => 'Directory root of the presets e.g. $self->root + "conf/presets". Normally built with root + preset_path.'
+    'isa'     => 'Str',
+    'is'      => 'rw',
+    'default' => '',
+    'documentation' =>
+      'Directory root of the presets e.g. $self->root + "conf/presets". Normally built with root + preset_path.'
 );
 
 has 'action' => (
