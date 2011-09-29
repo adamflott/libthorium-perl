@@ -1,5 +1,11 @@
 Revision history for Thorium.
 
+0.510  Wed 28 Sep 2011 21:11:50 EDT
+
+  [BUG]
+
+  * local.yaml should not be filtered out of files to load
+
 0.509  Wed 28 Sep 2011 06:53:14 PM EDT
 
   [BUG]
