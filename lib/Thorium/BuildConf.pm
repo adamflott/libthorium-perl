@@ -30,7 +30,7 @@ use Getopt::Long qw();
 use Scalar::Util qw();
 
 # CPAN
-use Class::MOP qw();
+use Class::Load qw();
 use File::Find::Rule;
 use Hobocamp::Dialog;
 use Hobocamp;
@@ -163,7 +163,7 @@ sub BUILD {
     $self->usage() if (exists($opts{'help'}));
 
     try {
-        Class::MOP::load_class($self->conf_type);
+        Class::Load::load_class($self->conf_type);
     }
     catch {
         my $error = $_;
@@ -908,7 +908,7 @@ sub apply_fixup {
     _print_to_stdout("Applying fixup $module_name");
     $self->log->trace("Applying fixup $module_name");
 
-    Class::MOP::load_class($module_name);
+    Class::Load::load_class($module_name);
 
     my $ret;
     try {
